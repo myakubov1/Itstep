@@ -6,47 +6,40 @@ using System.Threading.Tasks;
 
 namespace Itstep
 {
-    //Задание 3.
-    //Числовые значения символов нижнего регистра в коде ASCII
-    //отличаются от значений символов верхнего регистра на постоянную
-    //величину.Как её узнать?
-    //Написать программу, которая считывает с клавиатуры и конвертирует
-    //все символы нижнего регистра в символы верхнего регистра и наоборот.
+    //   Задание 5.
+    //Дано целое число N, найти число, полученное при
+    //прочтении числа N справа налево.Например, если было
+    //введено число 345, то программа должна вывести число 543.
     class Program
     {
         static void Main(string[] args)
         {
-            int e; //введеный код символа
-            char i;
-            Console.WriteLine("Введите символ(ы) латинского алфавита: ");
-
             do
-            {                
-                do  //ввод символов, пока не будет перенос строки или возврата каретки
-                {
+            {
+                int checkInt;
+                string inputString = Console.ReadLine(); //ввод строки в консоль
+                bool isParseble = int.TryParse(inputString, out checkInt); //проверка на то, является ли введеная строка натуральным числом
 
-                    e = Console.Read();
-                    i = (char)e;
-                } while (i == '\n' | i == '\r');
+                if (isParseble == true)
+                {
+                    //Создаем два массива.
+                    //Второму массиву присваиваем значения первого (итерация в обрватном порядке).
+                    char[] beforeReverse = inputString.ToCharArray(); 
+                    char[] afterReverse = new char[beforeReverse.Length];
+                    int count = 0;
 
-                //проверка на регистр
-                if (e >= 65 && e <= 90) //верхний регистр
-                {
-                    e += 32;
-                    i = (char)e;
-                    Console.WriteLine(i);
+                    for (int i = beforeReverse.Length - 1; i >= 0; i--)
+                    {
+                        afterReverse[count] = beforeReverse[i];
+                        count++;
+                    }
+                    Console.WriteLine(afterReverse);
                 }
-                else if (e >= 97 && e <= 122) //нижний регистр
+                else  //если не является натуральным числом
                 {
-                    e -= 32;
-                    i = (char)e;
-                    Console.WriteLine(i);
+                    Console.WriteLine("Введенная строка не является натуральным числом");
                 }
-                else //символы, отличие от латинского алфавита
-                {
-                    i = (char)e;
-                    Console.WriteLine($"Не латинский символ \"{i}\"");
-                }
+
             } while (true);
         }
     }
