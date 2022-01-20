@@ -6,47 +6,46 @@ using System.Threading.Tasks;
 
 namespace Itstep
 {
-//1. Прочитать с клавиатуры массив строк.
-//Перечислить их длины.Вывести на экран
-//первую и последнюю буквы самой длинной строки.
+//2. Заполнить массив случайными числами.
+//Найти сумму элементов массива.
+//Может ли при сложении потребоваться checked?
 
     class Program
     {
         static void Main(string[] args)
         {
+            Random random = new Random();
+            int arraySumm = 0;
+
             int arrayLength;
-
-
-            Console.Write("Количество строк в массиве: ");
+            Console.Write("Количество элементов в массиве: ");
 
             bool isLength = int.TryParse(Console.ReadLine(), out arrayLength); //Проверяем введено ли число в качестве количества элементов массива
-            string[] arrayElements = new string[arrayLength]; //Выделяем место под будущий массив
 
-            for (int i = 0; i < arrayLength; i++)  //Цикл с заполнением массива элементами 
+            int[] arrayElements = new int[arrayLength]; //Выделяем место под будущий массив
+
+            for (int i = 0; i < arrayLength; i++)  //Заполнение массива
             {
-                Console.Write("Введите строку {0}: ", i + 1);
-                arrayElements[i] = Console.ReadLine();
+                arrayElements[i] = random.Next(1, 2147483647);
+                Console.WriteLine($"Элемент {i} равен {arrayElements[i]}");
+
             }
 
-            for (int i = 0; i < arrayLength; i++) //Цикл для вывода элементов массива в консоль (для удобства)
+            try //ловим ошибку на переполнении или нам везет
             {
-                Console.WriteLine($"Элемент №{i}: {arrayElements[i]} | Длина эелмента: {arrayElements[i].Length}");
-            }
-
-
-            int maxLength = arrayElements[0].Length;
-            string maxElement = arrayElements[0];
-            foreach (string s in arrayElements)
-            {
-                if (s.Length > maxLength)
+                foreach (int i in arrayElements)
                 {
-                    maxLength = s.Length;
-                    maxElement = s;
+                    arraySumm = checked(arraySumm + i);
+                    Console.WriteLine(arraySumm);
                 }
+               
             }
-            Console.WriteLine($"Размер самой длинной строки: {maxLength} | Строка: {maxElement}");
-            char[] charArrayMaxElement = maxElement.ToCharArray();
-            Console.WriteLine($"Первый символ: {charArrayMaxElement[0]} | Последний символ: {charArrayMaxElement[charArrayMaxElement.Length - 1]}");
+            catch (OverflowException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
         }
     }
 }
