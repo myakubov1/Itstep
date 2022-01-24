@@ -6,45 +6,40 @@ using System.Threading.Tasks;
 
 namespace Itstep
 {
-//2. Заполнить массив случайными числами.
-//Найти сумму элементов массива.
-//Может ли при сложении потребоваться checked?
+//4. Создать массив. Пройти по нему циклом.
+//Для каждого числа создать строку из этих цифр этой длины.
+
 
     class Program
     {
         static void Main(string[] args)
         {
             Random random = new Random();
-            int arraySumm = 0;
+            Random random1 = new Random();
 
-            int arrayLength;
-            Console.Write("Количество элементов в массиве: ");
+            int[] arrayElements = new int[random1.Next(1,10)]; 
 
-            bool isLength = int.TryParse(Console.ReadLine(), out arrayLength); //Проверяем введено ли число в качестве количества элементов массива
-
-            int[] arrayElements = new int[arrayLength]; //Выделяем место под будущий массив
-
-            for (int i = 0; i < arrayLength; i++)  //Заполнение массива
+            for (int i = 0; i < arrayElements.Length; i++)  //Заполнение массива
             {
-                arrayElements[i] = random.Next(1, 2147483647);
-                Console.WriteLine($"Элемент {i} равен {arrayElements[i]}");
+                arrayElements[i] = random.Next(1, 9);
 
             }
-
-            try //ловим ошибку на переполнении или нам везет
+            int k = 0;
+            for (int i = 0; i < arrayElements.Length; i++)  
             {
-                foreach (int i in arrayElements)
+                do
                 {
-                    arraySumm = checked(arraySumm + i);
-                    Console.WriteLine(arraySumm);
+                    Console.Write(arrayElements[i]);
+                    k++;
+                    
                 }
-               
-            }
-            catch (OverflowException ex)
-            {
-                Console.WriteLine(ex.Message);
+                while (k<arrayElements[i]);
+                k = 0;
+                Console.WriteLine("");
             }
 
+           
+            
 
         }
     }
