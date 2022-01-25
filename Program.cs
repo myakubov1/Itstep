@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Itstep
 {
-    //Умножение матрицы на число;
+    //Умножение матрицы на матрицу;
     class Program
     {
         static void Main(string[] args)
@@ -16,39 +16,89 @@ namespace Itstep
             int r = int.Parse(Console.ReadLine());
             Console.Write("Количество столбцов матрицы A: ");
             int c = int.Parse(Console.ReadLine());
-            Console.Write("На что умножаем?: ");
-            int k = int.Parse(Console.ReadLine());
 
-            double[,] A = new double[r, c];
+            int[,] A = new int[r, c];
 
-            for (var i = 0; i < r; i++)
+            for (int i = 0; i < r; i++)
             {
-                for (var j = 0; j < c; j++)
+                for (int j = 0; j < c; j++)
                 {
                     Console.Write("[{0}][{1}] = ", i, j);
-                    A[i, j] = double.Parse(Console.ReadLine());
+                    A[i, j] = int.Parse(Console.ReadLine());
                 }
             }
 
-            var B = new double[A.GetLength(0), A.GetLength(1)];
 
-            for (var i = 0; i < A.GetLength(0); i++)
+
+            Console.Write("Количество строк матрицы B: ");
+            int r2 = int.Parse(Console.ReadLine());
+            Console.Write("Количество столбцов матрицы B: ");
+            int c2 = int.Parse(Console.ReadLine());
+
+            int[,] B = new int[r2, c2];
+
+            for (int i = 0; i < r2; i++)
             {
-                for (var j = 0; j < A.GetLength(1); j++)
+                for (int j = 0; j < c2; j++)
                 {
-                    B[i, j] = A[i, j] * k;
+                    Console.Write("[{0}][{1}] = ", i, j);
+                    B[i, j] = int.Parse(Console.ReadLine());
                 }
             }
 
-            for (var i = 0; i < B.GetLength(0); i++)
+            for (int i = 0; i < A.GetLength(0); i++)
             {
-                for (var j = 0; j < B.GetLength(1); j++)
+                for (int j = 0; j < A.GetLength(1); j++)
+                {
+                    Console.Write(A[i, j].ToString().PadLeft(5));
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("-----------------------------------------------------");
+
+            for (int i = 0; i < B.GetLength(0); i++)
+            {
+                for (int j = 0; j < B.GetLength(1); j++)
                 {
                     Console.Write(B[i, j].ToString().PadLeft(5));
                 }
                 Console.WriteLine();
             }
 
+            if (A.GetLength(1) != B.GetLength(0))
+            {
+                Console.WriteLine("Количество столбцов A должно быть равно количеству строк B!");
+                return;
+            }
+            else
+            {
+                int[,] C = new int[A.GetLength(0), B.GetLength(1)];
+
+                for (int i = 0; i < A.GetLength(0); i++)
+                {
+                    for (int j = 0; j < B.GetLength(1); j++)
+                    {
+                        C[i, j] = 0;
+
+                        for (int k = 0; k < A.GetLength(1); k++)
+                        {
+                            C[i, j] += A[i, k] * B[k, j];
+                        }
+                    }
+                }
+
+                Console.WriteLine("-----------------------------------------------------");
+                Console.WriteLine("Итоговая матрица");
+                for (int i = 0; i < C.GetLength(0); i++)
+                {
+                    for (int j = 0; j < C.GetLength(1); j++)
+                    {
+                        Console.Write(C[i, j].ToString().PadLeft(5));
+                    }
+                    Console.WriteLine();
+                }
+
+            }
         }
 
     }
