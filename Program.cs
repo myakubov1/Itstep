@@ -6,57 +6,48 @@ using System.Threading.Tasks;
 
 namespace Itstep
 {
-    //Пользователь вводит строку с клавиатуры.Необходимо зашифровать данную строку используя шифр Цезаря.
+    //Умножение матрицы на число;
     class Program
     {
         static void Main(string[] args)
         {
-            string alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-            string fullAlphabet = alphabet + alphabet.ToLower();
 
-            Console.Write("Сообщение для шифровки (расшифровки): ");
-            string message = Console.ReadLine();
-            Console.Write("Ключ для шифровки (расшифровки): ");
-            int key = int.Parse(Console.ReadLine());
-            int alphabetLength = fullAlphabet.Length;
+            Console.Write("Количество строк матрицы A: ");
+            int r = int.Parse(Console.ReadLine());
+            Console.Write("Количество столбцов матрицы A: ");
+            int c = int.Parse(Console.ReadLine());
+            Console.Write("На что умножаем?: ");
+            int k = int.Parse(Console.ReadLine());
 
-            /*===============================================================*/
+            double[,] A = new double[r, c];
 
-            string outMessage = "";
-            for (int i = 0; i < message.Length; i++)
+            for (var i = 0; i < r; i++)
             {
-                char c = message[i];
-                int index = fullAlphabet.IndexOf(c);
-                if (index < 0)
+                for (var j = 0; j < c; j++)
                 {
-                    outMessage += c.ToString();
-                }
-                else
-                {
-                    int codeIndex = (alphabetLength + index + key) % alphabetLength;
-                    outMessage += fullAlphabet[codeIndex];
+                    Console.Write("[{0}][{1}] = ", i, j);
+                    A[i, j] = double.Parse(Console.ReadLine());
                 }
             }
-            Console.WriteLine($"Зашифрованное сообщение: {outMessage}");
 
-            /*===============================================================*/
+            var B = new double[A.GetLength(0), A.GetLength(1)];
 
-            outMessage = "";
-            for (int i = 0; i < message.Length; i++)
+            for (var i = 0; i < A.GetLength(0); i++)
             {
-                char c = message[i];
-                int index = fullAlphabet.IndexOf(c);
-                if (index < 0)
+                for (var j = 0; j < A.GetLength(1); j++)
                 {
-                    outMessage += c.ToString();
-                }
-                else
-                {
-                    int codeIndex = (alphabetLength + index - key) % alphabetLength;
-                    outMessage += fullAlphabet[codeIndex];
+                    B[i, j] = A[i, j] * k;
                 }
             }
-            Console.WriteLine($"Расшифрованное сообщение: {outMessage}");
+
+            for (var i = 0; i < B.GetLength(0); i++)
+            {
+                for (var j = 0; j < B.GetLength(1); j++)
+                {
+                    Console.Write(B[i, j].ToString().PadLeft(5));
+                }
+                Console.WriteLine();
+            }
 
         }
 
