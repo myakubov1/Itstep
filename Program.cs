@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Itstep
 {
-    //Умножение матрицы на матрицу;
+    //Сложение матриц;
     class Program
     {
         static void Main(string[] args)
