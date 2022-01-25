@@ -45,7 +45,7 @@ namespace Itstep
                     B[i, j] = int.Parse(Console.ReadLine());
                 }
             }
-
+            Console.WriteLine("-----------------------------------------------------");
             for (int i = 0; i < A.GetLength(0); i++)
             {
                 for (int j = 0; j < A.GetLength(1); j++)
@@ -65,25 +65,21 @@ namespace Itstep
                 Console.WriteLine();
             }
 
-            if (A.GetLength(1) != B.GetLength(0))
+            if (A.GetLength(0) != B.GetLength(0) || A.GetLength(1) != B.GetLength(1))
             {
-                Console.WriteLine("Количество столбцов A должно быть равно количеству строк B!");
+                Console.WriteLine("Количество столбцов и строк A должно быть равно количеству стольбцов и строк  B!");
                 return;
             }
             else
             {
                 int[,] C = new int[A.GetLength(0), B.GetLength(1)];
 
+
                 for (int i = 0; i < A.GetLength(0); i++)
                 {
                     for (int j = 0; j < B.GetLength(1); j++)
                     {
-                        C[i, j] = 0;
-
-                        for (int k = 0; k < A.GetLength(1); k++)
-                        {
-                            C[i, j] += A[i, k] * B[k, j];
-                        }
+                        C[i, j] = A[i, j] + B[i, j];
                     }
                 }
 
