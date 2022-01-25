@@ -6,54 +6,62 @@ using System.Threading.Tasks;
 
 namespace Itstep
 {
-
+    //Пользователь вводит строку с клавиатуры.Необходимо зашифровать данную строку используя шифр Цезаря.
     class Program
     {
         static void Main(string[] args)
         {
-            student student;   
-            student.name = "Макс";
-            student.age = 18;
+            string alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+            string fullAlphabet = alphabet + alphabet.ToLower();
 
-            student student2 = new student("Коля", 20);  
-            student = student2;
-            student2.name = "Андрей";
-            student2.age = 19;
+            Console.Write("Сообщение для шифровки (расшифровки): ");
+            string message = Console.ReadLine();
+            Console.Write("Ключ для шифровки (расшифровки): ");
+            int key = int.Parse(Console.ReadLine());
+            int alphabetLength = fullAlphabet.Length;
 
+            /*===============================================================*/
 
-            /* ============================================= */
+            string outMessage = "";
+            for (int i = 0; i < message.Length; i++)
+            {
+                char c = message[i];
+                int index = fullAlphabet.IndexOf(c);
+                if (index < 0)
+                {
+                    outMessage += c.ToString();
+                }
+                else
+                {
+                    int codeIndex = (alphabetLength + index + key) % alphabetLength;
+                    outMessage += fullAlphabet[codeIndex];
+                }
+            }
+            Console.WriteLine($"Зашифрованное сообщение: {outMessage}");
 
-            Stud stud = new Stud();
-            stud.name = "Макс";
-            stud.age = 18;
+            /*===============================================================*/
 
-            Stud stud2 = new Stud();
-            stud = stud2;
-            stud2.name = "Андрей";
-            stud2.age = 19;
+            outMessage = "";
+            for (int i = 0; i < message.Length; i++)
+            {
+                char c = message[i];
+                int index = fullAlphabet.IndexOf(c);
+                if (index < 0)
+                {
+                    outMessage += c.ToString();
+                }
+                else
+                {
+                    int codeIndex = (alphabetLength + index - key) % alphabetLength;
+                    outMessage += fullAlphabet[codeIndex];
+                }
+            }
+            Console.WriteLine($"Расшифрованное сообщение: {outMessage}");
 
         }
+
     }
 
-
-    struct student
-    {
-        public string name;   
-        public int age;     
-        
-        public student(string Name, int Age)  
-        {
-            name = Name;
-            age = Age;   
-        }
-    }
-
-    class Stud
-    {
-        public string name;
-        public byte age;
-
-       
-    }
 }
+
 
