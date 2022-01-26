@@ -7,41 +7,74 @@ using System.Threading.Tasks;
 
 namespace Itstep
 {
+//    Дан двумерный массив размерностью 5×5, заполненный случайными числами из диапазона от –100 до 100.
+//Определить сумму элементов массива, расположенных
+//между минимальным и максимальным элементами.
     class Program
     {
-        //        Создайте приложение, проверяющее текст на недопустимые слова.Если недопустимое слово найдено, оно
-        //должно быть заменено на набор символов*. По итогам
-        //работы приложения необходимо показать статистику
-        //действий. 
+
         static void Main(string[] args)
         {
+            int[,] A = new int[5, 5];
+            int summValue = 0;
+            int maxValue = A[0, 0];
+            int minValue = A[0, 0];
 
-            string[] badWords = new string[] { "be", "is", "die" };
-            string baseText = "test, and bee be not testing.is. is  is,  But yes to test";
-            string regPattern;
-            string newValue;
-            int counter = 0;
+            int maxValueRow = 0, maxValuCol = 0, minValueRow = 0, minValueCol = 0;
 
-
-            for (int i = 0; i < badWords.Length; i++)
+            bool marker = false;
+            Random random = new Random();
+            Console.WriteLine("Массив B");
+            for (int i = 0; i < A.GetLength(0); i++)
             {
-                Regex regPatter = new Regex(@"\b" + badWords[i] + @"\b");
-                MatchCollection matches = regPatter.Matches(baseText);
-
-                if (baseText.IndexOf(badWords[i]) > 0)
+                for (int q = 0; q < A.GetLength(1); q++)
                 {
-
-                    regPattern = @"\b" + badWords[i] + @"\b";
-                    newValue = string.Concat(Enumerable.Repeat("*", badWords[i].Length));
-                    baseText = Regex.Replace(baseText, regPattern, newValue, RegexOptions.IgnoreCase);
-                    counter += matches.Count;
+                    A[i, q] = random.Next(-100, 100);
+                    if (maxValue < A[i, q])
+                    {
+                        maxValue = A[i, q];
+                        maxValueRow = i;
+                        maxValuCol = q;
+                    }
+                    if (minValue > A[i, q])
+                    {
+                        minValue = A[i, q];
+                        minValueRow = i;
+                        minValueCol = q;
+                    }
                 }
-
-
             }
-            Console.WriteLine(baseText);
-            Console.WriteLine($"Число замен: {counter}");
+
+            for (int i = 0; i < A.GetLength(0); i++)
+            {
+                for (int q = 0; q < A.GetLength(1); q++)
+                {
+                    if ((i == maxValueRow && q == maxValuCol) || (i == minValueRow && q == minValueCol))
+                    {
+                        if (marker)
+                        {
+                            marker = false;
+                            continue;
+                        }
+                        else
+                        {
+                            marker = true;
+                            continue;
+                        }
+                    }
+                    if (marker)
+                    {
+                        summValue += A[i, q];
+                    }
+                }
+            }
+
+            Console.WriteLine($"Максимальный элемент: {maxValue}");
+            Console.WriteLine($"Минимальный элемент: {minValue}");
+
+            Console.WriteLine($"Cуммa между минимальным и максимальным: {summValue}");
         }
+
 
     }
 
