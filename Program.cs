@@ -7,51 +7,38 @@ using System.Threading.Tasks;
 
 namespace Itstep
 {
-//    Задание 5
-//Пользователь с клавиатуры вводит в строку арифметическое выражение.Приложение должно посчитать
-//его результат. Необходимо поддерживать только две
-//операции: + и –.
+//  Задание 6
+//Пользователь с клавиатуры вводит некоторый текст.
+//Приложение должно изменять регистр первой буквы
+//каждого предложения на букву в верхнем регистре.
+//ДОМАШНЕЕ ЗАДАНИЕ
+//2
+//Например, если пользователь ввёл: «today is a good
+//day for walking.i will try to walk near the sea».
+//Результат работы приложения: «Today is a good day
+//for walking.I will try to walk near the sea».
     class Program
     {
 
         static void Main(string[] args)
         {
-            Console.Write("Выражение: ");
-            string myExpression = Console.ReadLine();
+            Console.Write("Текст: ");
+            string myText = Console.ReadLine();
+            myText = "." + myText;
 
-            Console.WriteLine($"ОПН: {GetExpression(myExpression)}");
+            string[] arrayOfSentences = myText.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < arrayOfSentences.Length; i++)
+            {
+                arrayOfSentences[i] = arrayOfSentences[i].Trim();
+                char[] ch = arrayOfSentences[i].ToCharArray();
+                ch[0] = char.ToUpper(ch[0]);
+                arrayOfSentences[i] = string.Join("", ch);
+            }
+            string outputText = string.Join(". ", arrayOfSentences);
+            Console.WriteLine(outputText);
 
         }
-
-        static private string GetExpression(string expression)
-        {
-            string outString = "";
-            Stack<char> myStack = new Stack<char>();
-
-            for (int i = 0; i < expression.Length; i++)
-            {
-                if (char.IsDigit(expression[i]))
-                {
-                    outString += expression[i];
-                }
-                else
-                {
-                    if (myStack.Count > 0)
-                    {
-                        outString += myStack.Pop();
-                    }
-                    myStack.Push(expression[i]);
-                }
-                Console.WriteLine(outString);
-            }
-
-            while (myStack.Count > 0)
-            {
-                outString += myStack.Pop();
-            }
-            return outString;
-        }
-
     }
 
 }
