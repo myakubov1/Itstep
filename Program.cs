@@ -7,74 +7,50 @@ using System.Threading.Tasks;
 
 namespace Itstep
 {
-//    Дан двумерный массив размерностью 5×5, заполненный случайными числами из диапазона от –100 до 100.
-//Определить сумму элементов массива, расположенных
-//между минимальным и максимальным элементами.
+//    Задание 5
+//Пользователь с клавиатуры вводит в строку арифметическое выражение.Приложение должно посчитать
+//его результат. Необходимо поддерживать только две
+//операции: + и –.
     class Program
     {
 
         static void Main(string[] args)
         {
-            int[,] A = new int[5, 5];
-            int summValue = 0;
-            int maxValue = A[0, 0];
-            int minValue = A[0, 0];
+            Console.Write("Выражение: ");
+            string myExpression = Console.ReadLine();
 
-            int maxValueRow = 0, maxValuCol = 0, minValueRow = 0, minValueCol = 0;
+            Console.WriteLine($"ОПН: {GetExpression(myExpression)}");
 
-            bool marker = false;
-            Random random = new Random();
-            Console.WriteLine("Массив B");
-            for (int i = 0; i < A.GetLength(0); i++)
-            {
-                for (int q = 0; q < A.GetLength(1); q++)
-                {
-                    A[i, q] = random.Next(-100, 100);
-                    if (maxValue < A[i, q])
-                    {
-                        maxValue = A[i, q];
-                        maxValueRow = i;
-                        maxValuCol = q;
-                    }
-                    if (minValue > A[i, q])
-                    {
-                        minValue = A[i, q];
-                        minValueRow = i;
-                        minValueCol = q;
-                    }
-                }
-            }
-
-            for (int i = 0; i < A.GetLength(0); i++)
-            {
-                for (int q = 0; q < A.GetLength(1); q++)
-                {
-                    if ((i == maxValueRow && q == maxValuCol) || (i == minValueRow && q == minValueCol))
-                    {
-                        if (marker)
-                        {
-                            marker = false;
-                            continue;
-                        }
-                        else
-                        {
-                            marker = true;
-                            continue;
-                        }
-                    }
-                    if (marker)
-                    {
-                        summValue += A[i, q];
-                    }
-                }
-            }
-
-            Console.WriteLine($"Максимальный элемент: {maxValue}");
-            Console.WriteLine($"Минимальный элемент: {minValue}");
-
-            Console.WriteLine($"Cуммa между минимальным и максимальным: {summValue}");
         }
 
+        static private string GetExpression(string expression)
+        {
+            string outString = "";
+            Stack<char> myStack = new Stack<char>();
+
+            for (int i = 0; i < expression.Length; i++)
+            {
+                if (char.IsDigit(expression[i]))
+                {
+                    outString += expression[i];
+                }
+                else
+                {
+                    if (myStack.Count > 0)
+                    {
+                        outString += myStack.Pop();
+                    }
+                    myStack.Push(expression[i]);
+                }
+                Console.WriteLine(outString);
+            }
+
+            while (myStack.Count > 0)
+            {
+                outString += myStack.Pop();
+            }
+            return outString;
+        }
 
     }
 
