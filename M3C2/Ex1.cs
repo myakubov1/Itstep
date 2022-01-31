@@ -45,10 +45,6 @@ namespace Itstep.M3C2
 
         public static void Exercise1()
         {
-
-
-
-
             Console.WriteLine("Из десятичной в двоичную : 1");
             Console.WriteLine("Из двоичной в десятичную: 2");
             string choise = Console.ReadLine();

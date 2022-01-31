@@ -13,7 +13,9 @@ namespace Itstep
 
         static void Main(string[] args)
         {
-            Ex1.Exercise1();
+            //Ex1.Exercise1();
+
+            Ex3.Exercise3();
         }
 
         
