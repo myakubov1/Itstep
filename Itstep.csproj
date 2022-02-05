@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="M3C2\Ex1.cs" />
     <Compile Include="M3C2\Ex3.cs" />
+    <Compile Include="M5C0\Ex_Matrix.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
