@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace Itstep.M5C0
 {
 
-
+    //Ввести две матрицы, сделать перегрузку операторов для умножения, сложения и вычитания матриц 
+    //Для удобства, матриц №2 копирует матрицу №1
 
     class Matrix
     {
@@ -134,9 +135,9 @@ namespace Itstep.M5C0
                 throw new Exception("Количество столбцов первой матрицы не равно количеству строк второй матрицы.");
             }
 
-            for (var i = 0; i < A.Rows; i++)
+            for (int i = 0; i < A.Rows; i++)
             {
-                for (var j = 0; j < B.Columns; j++)
+                for (int j = 0; j < B.Columns; j++)
                 {
                     C.MatrixValues[i, j] = 0;
                     try
